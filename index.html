@@ -1,0 +1,2024 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Phygital Materials Bureau - Kingston University London</title>
+    <meta name="description" content="Creating an integrated phygital materials ecosystem that democratises access to sustainable materials and accelerates the transition to a circular economy.">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.js"></script>
+    
+    <style>
+        /* Reset and Base Styles */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            /* Kingston University Brand Colors */
+            --black: #000000;
+            --white: #FFFFFF;
+            --blue-black: #002b49; /* C 100 M 63 Y 12 K 67 */
+            --blue: hsl(205, 100%, 44%); /* #009cde - C 85 M 21 Y 0 K 0 */
+            --blue-light: hsl(205, 65%, 85%);
+            --green: hsl(84, 71%, 44%); /* #78be20 - C 65 M 0 Y 100 K 0 */
+            --green-light: hsl(84, 71%, 85%);
+            --grey: hsl(0, 0%, 45%);
+            --grey-light: hsl(0, 0%, 95%);
+            --metallic-gold: hsl(43, 60%, 50%);
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            font-size: 16px;
+            line-height: 1.6;
+            color: var(--black);
+            background-color: var(--white);
+            overflow-x: hidden;
+        }
+
+        /* Fabric Animation Canvas */
+        #fabric-canvas {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 1;
+            pointer-events: none;
+            opacity: 0.15;
+        }
+
+        .content-wrapper {
+            position: relative;
+            z-index: 2;
+        }
+
+        /* Container */
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        /* Header */
+        .main-header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            z-index: 1000;
+            padding: 20px 0;
+            transition: all 0.3s ease;
+        }
+
+        .main-header .container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo-image {
+            height: 80px;
+            width: auto;
+        }
+
+        .main-nav ul {
+            display: flex;
+            list-style: none;
+            gap: 30px;
+        }
+
+        .main-nav a {
+            color: var(--black);
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.3s ease;
+        }
+
+        .main-nav a:hover {
+            color: var(--blue);
+        }
+
+        /* Section Padding */
+        .section-padding {
+            padding: 80px 0;
+        }
+
+        /* Hero Section */
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            padding: 100px 0 80px;
+        }
+
+        .hero-title {
+            font-size: clamp(3rem, 6vw, 5rem);
+            font-weight: 700;
+            line-height: 1.1;
+            margin-bottom: 30px;
+        }
+
+        .hero-subtitle {
+            font-size: 1.25rem;
+            max-width: 800px;
+            margin: 0 auto 40px;
+            color: var(--grey);
+        }
+
+        .hero-buttons {
+            display: flex;
+            gap: 20px;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        /* Buttons */
+        .btn {
+            display: inline-block;
+            padding: 14px 32px;
+            font-weight: 600;
+            text-decoration: none;
+            border-radius: 4px;
+            transition: all 0.3s ease;
+            cursor: pointer;
+            border: none;
+        }
+
+        .btn-primary {
+            background-color: var(--blue);
+            color: var(--white);
+        }
+
+        .btn-primary:hover {
+            background-color: var(--blue-black);
+            transform: translateY(-2px);
+        }
+
+        .btn-secondary {
+            background-color: transparent;
+            color: var(--black);
+            border: 2px solid var(--black);
+        }
+
+        .btn-secondary:hover {
+            background-color: var(--black);
+            color: var(--white);
+        }
+
+        .btn-white {
+            background-color: var(--white);
+            color: var(--black);
+            border: 2px solid var(--white);
+        }
+
+        .btn-white:hover {
+            background-color: transparent;
+            color: var(--white);
+            border: 2px solid var(--white);
+        }
+
+        .btn-outline {
+            background-color: transparent;
+            color: var(--black);
+            border: 2px solid var(--black);
+        }
+
+        /* Typography */
+        .section-title {
+            font-size: clamp(2rem, 4vw, 3rem);
+            font-weight: 700;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+
+        .section-intro {
+            font-size: 1.125rem;
+            text-align: center;
+            max-width: 800px;
+            margin: 0 auto 60px;
+            color: var(--grey);
+        }
+
+        .section-text {
+            font-size: 1.125rem;
+            margin-bottom: 40px;
+            max-width: 900px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        /* Feature Grid */
+        .feature-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            margin-top: 60px;
+        }
+
+        .feature-block {
+            padding: 40px 30px;
+            text-align: center;
+        }
+
+        .translucent-block {
+            background: rgba(255, 255, 255, 0.7);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(0, 0, 0, 0.1);
+            border-radius: 8px;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .translucent-block:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+        }
+
+        .feature-icon {
+            width: 60px;
+            height: 60px;
+            margin: 0 auto 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 8px;
+        }
+
+        .feature-icon svg,
+        .feature-icon i svg {
+            width: 30px;
+            height: 30px;
+            stroke: white;
+            fill: none;
+            stroke-width: 2;
+        }
+
+        .feature-icon.microscope {
+            background-color: var(--blue);
+        }
+
+        .feature-icon.cpu {
+            background-color: var(--blue-black);
+        }
+
+        .feature-icon.users {
+            background-color: var(--green);
+        }
+
+        .feature-block h3 {
+            font-size: 1.5rem;
+            margin-bottom: 15px;
+        }
+
+        /* Process Grid */
+        .process-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 40px;
+            margin: 60px 0;
+        }
+
+        .process-step {
+            text-align: center;
+        }
+
+        .process-icon {
+            width: 60px;
+            height: 60px;
+            margin: 0 auto 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 8px;
+        }
+
+        .process-icon svg,
+        .process-icon i svg {
+            width: 30px;
+            height: 30px;
+            stroke: white;
+            fill: none;
+            stroke-width: 2;
+        }
+
+        .process-icon.scan {
+            background-color: rgba(0, 43, 73, 0.25);
+        }
+
+        .process-icon.copy {
+            background-color: rgba(0, 43, 73, 0.5);
+        }
+
+        .process-icon.blocks {
+            background-color: rgba(0, 43, 73, 0.75);
+        }
+
+        .process-step h3 {
+            font-size: 1.25rem;
+            margin-bottom: 15px;
+        }
+
+        /* Comparison Display */
+        .comparison-display {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 40px;
+            margin-top: 60px;
+            margin-bottom: 5px;
+        }
+
+        .comparison-item {
+            text-align: center;
+            position: relative;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            border-radius: 8px;
+            overflow: hidden;
+        }
+
+        .comparison-item:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+        }
+
+        .comparison-image-container {
+            position: relative;
+            width: 100%;
+            height: 0;
+            padding-bottom: 100%; /* Reduced from 110% to 100% to fix white border */
+            overflow: hidden;
+            border-radius: 8px;
+        }
+
+        .comparison-image-container img {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            margin: 0;
+            padding: 0;
+        }
+
+        .comparison-overlay {
+            position: absolute;
+            top: 15px;
+            left: 15px;
+            background: rgba(0, 0, 0, 0.7);
+            color: white;
+            padding: 8px 16px;
+            border-radius: 4px;
+            font-weight: 600;
+            font-size: 0.875rem;
+        }
+
+        /* Carousel */
+        .carousel-container {
+            position: relative;
+            overflow: hidden; /* Changed from visible to hidden */
+            margin: 5px 0 5px 0;
+            width: 100%; /* Ensure full width */
+            padding: 0 50px; /* Add padding for navigation buttons */
+        }
+
+        .carousel-track {
+            display: flex;
+            transition: transform 0.5s ease;
+            gap: 30px;
+            /* Remove overflow hidden from track */
+            width: max-content; /* Ensure track is wide enough for all items */
+        }
+
+        .carousel-item {
+            flex: 0 0 300px;
+            text-align: center;
+            position: relative;
+            min-height: 300px; /* Ensure minimum height */
+            width: 300px; /* Explicit width */
+            opacity: 1; /* Ensure visibility */
+        }
+
+        .carousel-image {
+            position: relative;
+            margin-bottom: 20px;
+            width: 100%; /* Ensure full width */
+            height: 220px; /* Fixed height */
+        }
+
+        .carousel-image img {
+            width: 100%;
+            height: 220px;
+            object-fit: cover;
+            border-radius: 8px;
+            display: block; /* Ensure block display */
+            background-color: var(--grey-light); /* Placeholder color while loading */
+        }
+
+        .carousel-image .comparison-overlay {
+            position: absolute;
+            top: 10px;
+            left: 10px;
+            background: rgba(0, 0, 0, 0.8);
+            color: white;
+            padding: 6px 12px;
+            border-radius: 4px;
+            font-weight: 600;
+            font-size: 0.75rem;
+            max-width: 200px;
+            line-height: 1.2;
+        }
+
+        .info-toggle {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.9);
+            border: none;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            z-index: 50;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .info-toggle:hover {
+            background: var(--black);
+        }
+
+        .info-toggle:hover i {
+            color: white;
+        }
+
+        .info-toggle i {
+            width: 16px;
+            height: 16px;
+            color: var(--black);
+            transition: color 0.3s ease;
+        }
+
+        /* Overlay for popup background */
+        .popup-overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.6);
+            z-index: 9998;
+            pointer-events: auto;
+        }
+
+        .popup-overlay.active {
+            display: block;
+        }
+
+        .info-panel {
+            display: none;
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 90%;
+            max-width: 500px;
+            background: var(--white);
+            border: 1px solid var(--grey-light);
+            border-radius: 8px;
+            padding: 20px;
+            z-index: 10000; /* Increased z-index */
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.3);
+            pointer-events: auto;
+            /* Ensure it's not affected by parent transforms */
+            will-change: transform;
+            backface-visibility: hidden;
+        }
+
+        .info-panel.active {
+            display: block;
+            /* Force the panel to stay centered */
+            position: fixed !important;
+            top: 50% !important;
+            left: 50% !important;
+            transform: translate(-50%, -50%) !important;
+        }
+
+        /* Active panel appended to body */
+        #activeInfoPanel {
+            display: block !important;
+            position: fixed !important;
+            top: 50% !important;
+            left: 50% !important;
+            transform: translate(-50%, -50%) !important;
+            z-index: 10000 !important;
+            background: var(--white) !important;
+            border: 1px solid var(--grey-light) !important;
+            border-radius: 8px !important;
+            padding: 20px !important;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.3) !important;
+            width: 90% !important;
+            max-width: 500px !important;
+        }
+
+        .carousel-prev,
+        .carousel-next {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 40px;
+            height: 40px;
+            background: rgba(255, 255, 255, 0.9);
+            border: none;
+            border-radius: 0;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 100;
+            transition: all 0.3s ease;
+        }
+
+        .carousel-prev:hover:not(:disabled),
+        .carousel-next:hover:not(:disabled) {
+            background: rgba(0, 0, 0, 0.8);
+        }
+
+        .carousel-prev:hover:not(:disabled) i,
+        .carousel-next:hover:not(:disabled) i {
+            color: white;
+        }
+
+        .carousel-prev:disabled,
+        .carousel-next:disabled {
+            pointer-events: none;
+        }
+
+        .carousel-prev i,
+        .carousel-next i {
+            width: 24px;
+            height: 24px;
+            color: var(--black);
+            transition: color 0.3s ease;
+        }
+
+        .carousel-prev {
+            left: 0;
+        }
+
+        .carousel-next {
+            right: 0;
+        }
+
+        /* Product Details Grid */
+        .product-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 40px;
+            margin: 60px 0;
+        }
+
+        .product-block {
+            text-align: left;
+        }
+
+        .product-block h3 {
+            font-size: 1.25rem;
+            margin-bottom: 20px;
+            color: var(--black);
+        }
+
+        .product-details {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .detail-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 8px 0;
+            border-bottom: 1px solid var(--grey-light);
+        }
+
+        .detail-label {
+            font-weight: 600;
+            color: var(--grey);
+            flex-shrink: 0;
+            margin-right: 20px;
+        }
+
+        .detail-value {
+            font-weight: 500;
+            color: var(--black);
+            text-align: right;
+        }
+
+        .care-list {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .care-item {
+            padding: 8px 0;
+            border-bottom: 1px solid var(--grey-light);
+            position: relative;
+            padding-left: 20px;
+        }
+
+        .care-item::before {
+            content: "•";
+            position: absolute;
+            left: 0;
+            color: var(--blue);
+            font-weight: bold;
+        }
+
+        .certification-logos {
+            display: flex;
+            gap: 15px;
+            flex-wrap: wrap;
+            align-items: center;
+        }
+
+        .cert-logo {
+            height: 70px; /* Increased from 60px */
+            width: auto;
+            object-fit: contain;
+            transition: transform 0.3s ease;
+        }
+
+        .cert-logo:hover {
+            transform: scale(1.1);
+        }
+
+        /* Colorful Blocks */
+        .colorful-block {
+            background: linear-gradient(135deg, rgba(0, 43, 73, 0.25) 0%, rgba(0, 43, 73, 0.75) 100%);
+            padding: 60px;
+            border-radius: 8px;
+            text-align: center;
+            margin: 40px 0;
+        }
+
+        .cta-block h2 {
+            font-size: 2.5rem;
+            margin-bottom: 20px;
+            color: var(--white);
+        }
+
+        .cta-block p {
+            font-size: 1.25rem;
+            margin-bottom: 30px;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+            color: var(--white);
+        }
+
+        /* Project Showcase */
+        .project-showcase {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 40px;
+            margin: 60px 0;
+        }
+
+        .showcase-item img {
+            width: 100%;
+            height: 400px;
+            object-fit: contain; /* Changed from cover to contain */
+            border-radius: 8px;
+        }
+
+        /* Project Feature Icons */
+        .feature-callout {
+            padding: 30px;
+            text-align: center;
+        }
+
+        .feature-callout-icon {
+            width: 60px;
+            height: 60px;
+            margin: 0 auto 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 8px;
+        }
+
+        .feature-callout-icon svg,
+        .feature-callout-icon i svg {
+            width: 30px;
+            height: 30px;
+            stroke: white;
+            fill: none;
+            stroke-width: 2;
+        }
+
+        .feature-callout-icon.instant {
+            background-color: hsla(84, 71%, 44%, 0.85);
+        }
+
+        .feature-callout-icon.waste {
+            background-color: hsla(84, 71%, 44%, 0.65);
+        }
+
+        .feature-callout-icon.access {
+            background-color: hsla(84, 71%, 44%, 0.45);
+        }
+
+        .feature-callout-icon.dpp {
+            background-color: hsla(84, 71%, 44%, 0.25);
+        }
+
+        /* Project Features */
+        .project-features {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 30px;
+            margin: 60px 0;
+        }
+
+        .feature-callout {
+            padding: 30px;
+            text-align: center;
+        }
+
+        .feature-callout h3 {
+            margin-bottom: 15px;
+        }
+
+        /* Partner Block */
+        .partner-block {
+            background: linear-gradient(135deg, hsla(84, 71%, 44%, 0.25) 0%, hsla(84, 71%, 44%, 0.85) 100%);
+            padding: 60px;
+            border-radius: 8px;
+            text-align: center;
+            margin: 40px 0;
+        }
+
+        .partner-block h3 {
+            font-size: 2rem;
+            margin-bottom: 20px;
+            color: var(--white);
+        }
+
+        .partner-block p {
+            font-size: 1.125rem;
+            margin-bottom: 30px;
+            max-width: 700px;
+            margin-left: auto;
+            margin-right: auto;
+            color: var(--white);
+        }
+
+        /* Enhanced Education and Research Grids */
+        .education-grid,
+        .research-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 30px;
+            margin-top: 60px;
+        }
+
+        /* Flip Card Styles */
+        .flip-card {
+            background-color: transparent;
+            width: 100%;
+            height: 300px;
+            perspective: 1000px;
+            cursor: pointer;
+        }
+
+        .flip-card-inner {
+            position: relative;
+            width: 100%;
+            height: 100%;
+            text-align: center;
+            transition: transform 0.8s;
+            transform-style: preserve-3d;
+        }
+
+        .flip-card.flipped .flip-card-inner {
+            transform: rotateY(180deg);
+        }
+
+        .flip-card-front, .flip-card-back {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            -webkit-backface-visibility: hidden;
+            backface-visibility: hidden;
+            border-radius: 8px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        .flip-card-front {
+            padding: 40px;
+        }
+
+        .flip-card-back {
+            transform: rotateY(180deg);
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(0, 0, 0, 0.1);
+            padding: 0;
+            overflow: hidden;
+        }
+
+        .flip-card-back img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            border-radius: 8px;
+        }
+
+        .flip-card-back .placeholder-text {
+            color: var(--grey);
+            font-style: italic;
+            font-size: 0.9rem;
+        }
+
+        /* Education Block Colors */
+        .education-block {
+            background: transparent;
+            color: var(--white);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .education-block:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+        }
+
+        .education-block[data-color="blue"] .flip-card-front {
+            background: rgba(0, 156, 222, 0.85);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(0, 156, 222, 0.3);
+        }
+
+        .education-block[data-color="black"] .flip-card-front {
+            background: rgba(0, 0, 0, 0.85);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(0, 0, 0, 0.3);
+        }
+
+        .education-block[data-color="green"] .flip-card-front {
+            background: rgba(120, 190, 32, 0.85);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(120, 190, 32, 0.3);
+        }
+
+        .education-block[data-color="grey"] .flip-card-front {
+            background: rgba(115, 115, 115, 0.85);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(115, 115, 115, 0.3);
+        }
+
+        .education-block h3 {
+            font-size: 1.5rem;
+            margin-bottom: 15px;
+        }
+
+        /* Research Block Colors (Reversed Order) */
+        .research-block {
+            background: transparent;
+            color: var(--white);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .research-block:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+        }
+
+        .research-block[data-color="grey"] .flip-card-front {
+            background: rgba(115, 115, 115, 0.85);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(115, 115, 115, 0.3);
+        }
+
+        .research-block[data-color="green"] .flip-card-front {
+            background: rgba(120, 190, 32, 0.85);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(120, 190, 32, 0.3);
+        }
+
+        .research-block[data-color="black"] .flip-card-front {
+            background: rgba(0, 0, 0, 0.85);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(0, 0, 0, 0.3);
+        }
+
+        .research-block[data-color="blue"] .flip-card-front {
+            background: rgba(0, 156, 222, 0.85);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(0, 156, 222, 0.3);
+        }
+
+        .research-block h3 {
+            font-size: 1.5rem;
+            margin-bottom: 15px;
+        }
+
+        /* Location */
+        .location-images {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 40px;
+            margin-top: 60px;
+        }
+
+        .location-image img {
+            width: 100%;
+            height: 400px;
+            object-fit: cover;
+            border-radius: 8px;
+            margin-bottom: 15px;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            cursor: pointer;
+        }
+
+        .location-image img:hover {
+            transform: translateY(-10px) scale(1.02);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+        }
+
+        .image-caption {
+            text-align: center;
+            color: var(--grey);
+            margin-bottom: 5px;
+        }
+
+        .image-credit {
+            text-align: center;
+            font-size: 0.875rem;
+            color: var(--grey);
+        }
+
+        /* Footer with Blue Gradient */
+        .main-footer {
+            background: linear-gradient(135deg, hsl(205, 100%, 44%) 0%, hsl(205, 100%, 30%) 100%);
+            color: var(--white);
+        }
+
+        .main-footer .section-title {
+            color: var(--white);
+        }
+
+        .footer-intro {
+            text-align: center;
+            font-size: 1.125rem;
+            max-width: 800px;
+            margin: 0 auto 60px;
+            color: var(--white);
+        }
+
+        .contact-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 30px;
+            margin-bottom: 60px;
+        }
+
+        .contact-block {
+            padding: 40px 30px;
+            text-align: center;
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 8px;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .contact-block:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+        }
+
+        .contact-icon {
+            width: 48px;
+            height: 48px;
+            margin: 0 auto 20px;
+            background: var(--white);
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border: 2px solid var(--white);
+        }
+
+        .contact-icon svg,
+        .contact-icon i svg {
+            width: 24px;
+            height: 24px;
+            stroke: var(--blue);
+            fill: none;
+            stroke-width: 2;
+        }
+
+        .contact-block h3 {
+            margin-bottom: 15px;
+            color: var(--white);
+        }
+
+        .contact-block p {
+            color: var(--white);
+        }
+
+        .contact-block a {
+            color: var(--white);
+            text-decoration: none;
+            font-weight: 500;
+        }
+
+        .contact-block a:hover {
+            text-decoration: underline;
+        }
+
+        .footer-bottom {
+            text-align: center;
+            padding-top: 40px;
+            border-top: 1px solid rgba(255, 255, 255, 0.2);
+        }
+
+        .copyright {
+            margin-bottom: 10px;
+            color: var(--white);
+        }
+
+        .credits {
+            color: rgba(255, 255, 255, 0.8);
+            font-size: 0.875rem;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .main-nav ul {
+                flex-direction: column;
+                gap: 15px;
+            }
+
+            .hero-title {
+                font-size: 2rem;
+            }
+
+            .hero-buttons {
+                flex-direction: column;
+                align-items: center;
+            }
+
+            .comparison-display,
+            .project-showcase,
+            .location-images {
+                grid-template-columns: 1fr;
+            }
+
+            .education-grid,
+            .research-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .carousel-item {
+                flex: 0 0 250px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Fabric Animation Canvas -->
+    <canvas id="fabric-canvas" class="fabric-animation"></canvas>
+    
+    <!-- Main Content Wrapper -->
+    <div class="content-wrapper">
+        <!-- Header -->
+        <header class="main-header">
+            <div class="container">
+                <div class="logo">
+                    <img src="images/Phygital Materials Bureau.png" alt="Phygital Materials Bureau - Kingston University London" class="logo-image">
+                </div>
+                <nav class="main-nav">
+                    <ul>
+                        <li><a href="#about">About</a></li>
+                        <li><a href="#inaugural">Inaugural Project</a></li>
+                        <li><a href="#education">Education</a></li>
+                        <li><a href="#research">Research</a></li>
+                        <li><a href="#location">Location</a></li>
+                        <li><a href="#contact">Contact</a></li>
+                    </ul>
+                </nav>
+            </div>
+        </header>
+
+        <!-- Hero Section -->
+        <section class="hero" id="about">
+            <div class="container">
+                <h1 class="hero-title">Bridging Physical &<br><span style="color: var(--blue);">Digital Materials</span></h1>
+                <p class="hero-subtitle">Creating an integrated phygital materials ecosystem that democratises access to sustainable materials and accelerates the transition to a circular economy through seamless physical-digital experiences.</p>
+                <div class="hero-buttons">
+                    <a href="#research" class="btn btn-primary">Explore Our Research</a>
+                    <a href="#location" class="btn btn-secondary">Visit the Bureau</a>
+                </div>
+            </div>
+        </section>
+
+        <!-- Creative Collaboration Section -->
+        <section class="collaboration section-padding">
+            <div class="container">
+                <h2 class="section-title">A Space for Creative Collaboration</h2>
+                <p class="section-intro">The Phygital Materials Bureau represents a world-class education facility that enables "Thinking Through Making across the Spectrum of Reality". We're exploring and developing the materials of tomorrow, readying them for digital integration and discoverability.</p>
+                
+                <div class="feature-grid">
+                    <div class="feature-block translucent-block">
+                        <div class="feature-icon microscope">
+                            <i data-lucide="microscope"></i>
+                        </div>
+                        <h3>Advanced Research</h3>
+                        <p>Our flexible hybrid bureau is library, studio and laboratory, where students, industry and the public can discover, explore and develop new sustainable materials and manufacturing opportunities.</p>
+                    </div>
+                    
+                    <div class="feature-block translucent-block">
+                        <div class="feature-icon cpu">
+                            <i data-lucide="cpu"></i>
+                        </div>
+                        <h3>Digital Integration</h3>
+                        <p>Through strategic partnerships and pioneering computational methods we capture and merge physical material properties and their certified metadata with their digital appearance attributes, responsiveness and adaptability across platforms.</p>
+                    </div>
+                    
+                    <div class="feature-block translucent-block">
+                        <div class="feature-icon users">
+                            <i data-lucide="users"></i>
+                        </div>
+                        <h3>Collaborative Innovation</h3>
+                        <p>We're creating a stronger, more cohesive campus community and Kingston identity by facilitating opportunities for interdisciplinary collaboration using industry-standard and future-facing creative technologies.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Materials Process Section -->
+        <section class="materials-process section-padding">
+            <div class="container">
+                <h2 class="section-title">Materials Prepared for the Future</h2>
+                <p class="section-intro">We started by creating digital twins of sustainable materials for use in computer graphic, gaming and digital product creation platforms like Clo3D and Unreal Engine.</p>
+                
+                <div class="process-grid">
+                    <div class="process-step">
+                        <div class="process-icon scan">
+                            <i data-lucide="scan"></i>
+                        </div>
+                        <h3>Physical Scanning & Analysis</h3>
+                        <p>High-resolution scanning captures material appearance and attributes like surface texture, sheen, translucency. Physical properties like drape and stretch are analysed through mechanical processes.</p>
+                    </div>
+                    
+                    <div class="process-step">
+                        <div class="process-icon copy">
+                            <i data-lucide="copy"></i>
+                        </div>
+                        <h3>Digital Twin Creation</h3>
+                        <p>Accurate digital representations with validated physical properties are combined with traceable providence and sustainability accreditation metadata.</p>
+                    </div>
+                    
+                    <div class="process-step">
+                        <div class="process-icon blocks">
+                            <i data-lucide="blocks"></i>
+                        </div>
+                        <h3>Platform Integration</h3>
+                        <p>Providing seamless integration with industry-standard design software, product lifecycle management and discoverability platforms.</p>
+                    </div>
+                </div>
+                
+                <div class="comparison-display">
+                    <div class="comparison-item">
+                        <div class="comparison-image-container">
+                            <img src="images/BOLT.png" alt="Physical Fabric (BOLT)">
+                            <div class="comparison-overlay">Physical Fabric</div>
+                        </div>
+                    </div>
+                    <div class="comparison-item">
+                        <div class="comparison-image-container">
+                            <img src="images/DRAPED.png" alt="Digital Twin (DRAPED)">
+                            <div class="comparison-overlay">Digital Twin</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Technical Carousel Section -->
+        <section class="texture-maps" style="padding-top: 5px; padding-bottom: 20px;">
+            <div class="container">
+                <div class="carousel-container">
+                    <div class="carousel-track" id="carouselTrack">
+                        <div class="carousel-item" data-map="base-color">
+                            <div class="carousel-image">
+                                <img src="images/BASE.png" alt="Base Colour Map">
+                                <div class="comparison-overlay">Base Colour/Albedo/Diffuse Map</div>
+                                <button class="info-toggle">
+                                    <i data-lucide="circle-question-mark"></i>
+                                </button>
+                                <div class="info-panel">
+                                    <p>This is the primary texture that defines the colour and visual pattern of your fabric or material. In Clo3D, this map doesn't include lighting or shading—it simply applies the flat, original look of the surface. Think of it as the "paint" layer on your 3D fabric.</p>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="carousel-item" data-map="normal">
+                            <div class="carousel-image">
+                                <img src="images/NORMAL.png" alt="Normal Map">
+                                <div class="comparison-overlay">Normal Map</div>
+                                <button class="info-toggle">
+                                    <i data-lucide="circle-question-mark"></i>
+                                </button>
+                                <div class="info-panel">
+                                    <p>Used to simulate fine surface details. The normal map adds visual depth and detail by creating the appearance of bumps, wrinkles, and stitching without modifying the actual geometry. Clo3D uses this to simulate tactile textures such as embroidery or grain. It's a great way to add realism without increasing mesh complexity. Best for subtle fabric textures and surface impressions.</p>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="carousel-item" data-map="displacement">
+                            <div class="carousel-image">
+                                <img src="images/DISPLACEMENT.png" alt="Displacement Map">
+                                <div class="comparison-overlay">Displacement/Height Map</div>
+                                <button class="info-toggle">
+                                    <i data-lucide="circle-question-mark"></i>
+                                </button>
+                                <div class="info-panel">
+                                    <p>This grayscale map adjusts the actual surface geometry by pushing or pulling the mesh vertically. In Clo3D, it allows for realistic elevation changes on your material, like puffed quilting or embossed logos. Note: Unlike a normal map, this map does affect the 3D mesh—great for dramatic textures and sculpted fabrics.</p>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="carousel-item" data-map="opacity">
+                            <div class="carousel-image">
+                                <img src="images/ALPHA.png" alt="Opacity Map">
+                                <div class="comparison-overlay">Opacity/Alpha/Transparency Map</div>
+                                <button class="info-toggle">
+                                    <i data-lucide="circle-question-mark"></i>
+                                </button>
+                                <div class="info-panel">
+                                    <p>This grayscale map controls material transparency. In Clo3D, white (1) means fully visible, black (0) means fully transparent. It's ideal for lace, mesh, cutouts, or printed transparency effects.</p>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="carousel-item" data-map="roughness">
+                            <div class="carousel-image">
+                                <img src="images/ROUGHNESS.png" alt="Roughness Map">
+                                <div class="comparison-overlay">Roughness Map</div>
+                                <button class="info-toggle">
+                                    <i data-lucide="circle-question-mark"></i>
+                                </button>
+                                <div class="info-panel">
+                                    <p>Controls light reflection behaviour. This map defines how matte or shiny a material looks. A black (0) value makes the fabric look glossy; white (1) makes it rough and diffuse.</p>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="carousel-item" data-map="metallic">
+                            <div class="carousel-image">
+                                <img src="images/METALLIC.png" alt="Metallic Map">
+                                <div class="comparison-overlay">Metallic Map</div>
+                                <button class="info-toggle">
+                                    <i data-lucide="circle-question-mark"></i>
+                                </button>
+                                <div class="info-panel">
+                                    <p>This map determines whether a surface behaves like metal or non-metal. Use black (0) for fabric and non-metallic materials; white (1) for metallic parts like buttons, zippers, or accessories. Mid-gray values are usually avoided in PBR workflows—use Roughness to handle variations.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <button class="carousel-prev" id="carouselPrev">
+                        <i data-lucide="chevron-left"></i>
+                    </button>
+                    <button class="carousel-next" id="carouselNext">
+                        <i data-lucide="chevron-right"></i>
+                    </button>
+                </div>
+            </div>
+        </section>
+
+        <!-- Product Information Section -->
+        <section class="product-details" style="padding-top: 0px; padding-bottom: 80px;">
+            <div class="container">
+                <div class="product-grid">
+                    <div class="product-block">
+                        <h3>Product Information</h3>
+                        <div class="product-details">
+                            <div class="detail-row">
+                                <span class="detail-label">Brand:</span>
+                                <span class="detail-value">Forest Digital Printing</span>
+                            </div>
+                            <div class="detail-row">
+                                <span class="detail-label">Providence:</span>
+                                <span class="detail-value">Normandy, France</span>
+                            </div>
+                            <div class="detail-row">
+                                <span class="detail-label">End Use:</span>
+                                <span class="detail-value">Print on demand, fashion and interiors</span>
+                            </div>
+                            <div class="detail-row">
+                                <span class="detail-label">Structure:</span>
+                                <span class="detail-value">Plain Weave</span>
+                            </div>
+                            <div class="detail-row">
+                                <span class="detail-label">Characteristics:</span>
+                                <span class="detail-value">Slub</span>
+                            </div>
+                            <div class="detail-row">
+                                <span class="detail-label">Composition:</span>
+                                <span class="detail-value">100% Linen</span>
+                            </div>
+                            <div class="detail-row">
+                                <span class="detail-label">Weight:</span>
+                                <span class="detail-value">126 GSM</span>
+                            </div>
+                            <div class="detail-row">
+                                <span class="detail-label">Useable Width:</span>
+                                <span class="detail-value">138 CM</span>
+                            </div>
+                            <div class="detail-row">
+                                <span class="detail-label">Colour:</span>
+                                <span class="detail-value">White - prepared for print</span>
+                            </div>
+                            <div class="detail-row">
+                                <span class="detail-label">Average Piece Length:</span>
+                                <span class="detail-value">60 M</span>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="product-block">
+                        <h3>Technical Properties</h3>
+                        <div class="product-details">
+                            <div class="detail-row">
+                                <span class="detail-label">Wash Fastness:</span>
+                                <span class="detail-value">3-4</span>
+                            </div>
+                            <div class="detail-row">
+                                <span class="detail-label">Light Fastness:</span>
+                                <span class="detail-value">4-5</span>
+                            </div>
+                            <div class="detail-row">
+                                <span class="detail-label">Pilling:</span>
+                                <span class="detail-value">3-4</span>
+                            </div>
+                        </div>
+                        
+                        <h3 style="margin-top: 30px;">Care Instructions</h3>
+                        <div class="care-list">
+                            <div class="care-item">Machine wash cold (30°C) with mild detergent</div>
+                            <div class="care-item">Do not bleach</div>
+                            <div class="care-item">Line dry or tumble dry low</div>
+                            <div class="care-item">Iron on reverse (medium heat, if needed)</div>
+                            <div class="care-item">Dry clean optional, especially for preserving print brightness</div>
+                        </div>
+                    </div>
+                    
+                    <div class="product-block">
+                        <h3>Certifications</h3>
+                        <div class="certification-logos">
+                            <img src="images/GOTS.jpg" alt="GOTS - Global Organic Textile Standard" class="cert-logo">
+                            <img src="images/oeko-tex-standard-100.png" alt="OEKO-TEX Standard 100" class="cert-logo">
+                            <img src="images/EU ecolabel.png" alt="EU Ecolabel" class="cert-logo">
+                            <img src="images/european-flax.jpg" alt="European Flax®" class="cert-logo">
+                            <img src="images/EU DPP.png" alt="EU DPP" class="cert-logo">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Call to Action -->
+        <section class="cta-section">
+            <div class="container">
+                <div class="cta-block colorful-block">
+                    <h2>Ready to Digitise Your Materials?</h2>
+                    <p>Transform your physical textile collection into interactive digital twins with authentic material properties, ready for 3DCG and DPC platforms.</p>
+                    <a href="#contact" class="btn btn-white">Start Your Digital Transformation</a>
+                </div>
+            </div>
+        </section>
+
+        <!-- Inaugural Project Section -->
+        <section class="inaugural-project section-padding" id="inaugural">
+            <div class="container">
+                <h2 class="section-title">Inaugural Project: Print-on-Demand Digital Twins</h2>
+                <p class="section-text" style="color: var(--grey); text-align: center;">Our collaboration with Forest Digital Printing demonstrates how creating frictionless access to sustainable materials and manufacturing methods accelerates the transition to a circular economy and aids the delivery of the United Nations Sustainable Development Goal 12; Responsible Consumption and Production. Seamless physical-digital, digital-physical workflows enable designers to experience authentic fabric behaviour digitally before physical production. Leading to better decision making and less waste. This project broadens Forest Digital Printing's access to new markets and strengthens their B2B relationships.</p>
+                
+                <div class="project-showcase">
+                    <div class="showcase-item">
+                        <img src="images/FDP dress.png" alt="FDP Dress">
+                    </div>
+                    <div class="showcase-item">
+                        <img src="images/FDP print.jpg" alt="FDP Print">
+                    </div>
+                </div>
+                
+                <div class="project-features">
+                    <div class="feature-callout translucent-block">
+                        <div class="feature-callout-icon instant">
+                            <i data-lucide="fast-forward"></i>
+                        </div>
+                        <h3>Instant Sampling</h3>
+                        <p>Digital samples are delivered in minutes, not days.</p>
+                    </div>
+                    <div class="feature-callout translucent-block">
+                        <div class="feature-callout-icon waste">
+                            <i data-lucide="trash-2"></i>
+                        </div>
+                        <h3>Waste Reduction</h3>
+                        <p>Focuses decision making, reducing waste and shipping.</p>
+                    </div>
+                    <div class="feature-callout translucent-block">
+                        <div class="feature-callout-icon access">
+                            <i data-lucide="globe"></i>
+                        </div>
+                        <h3>Broadens Access</h3>
+                        <p>Digital distribution enables more consumer testing and experimentation.</p>
+                    </div>
+                    <div class="feature-callout translucent-block">
+                        <div class="feature-callout-icon dpp">
+                            <i data-lucide="shield-check"></i>
+                        </div>
+                        <h3>EU DPP Ready</h3>
+                        <p>Accreditation metadata can be embedded for PLM integration.</p>
+                    </div>
+                </div>
+                
+                <div class="partner-block">
+                    <h3>Knowledge Exchange Partnership with Forest Digital Printing</h3>
+                    <p>Forest Digital Printing is a UK-based luxury textile printer known for their sustainable practices and use of cutting-edge technology. They are the perfect partner for our inaugural project. Their core collection of 50 premium sustainable base fabrics will become the foundation of our digital library.</p>
+                    <a href="https://forestdigital.co.uk" class="btn btn-white" target="_blank" rel="noopener">Learn More About Forest Digital Printing</a>
+                </div>
+            </div>
+        </section>
+
+        <!-- Educational Impact Section -->
+        <section class="education-impact section-padding" id="education">
+            <div class="container">
+                <h2 class="section-title">Educational Impact</h2>
+                <p class="section-intro">Introducing a transformative educational opportunity, aligned with Kingston University's award-winning Future Skills framework, that brings real-world, industry-standard and future-facing, responsible design technologies and workflows into the design studio and creative lab.</p>
+                
+                <div class="education-grid">
+                    <div class="education-block flip-card" data-color="blue">
+                        <div class="flip-card-inner">
+                            <div class="flip-card-front">
+                                <h3>Digital Literacy in Sustainable Design</h3>
+                                <p>Students gain hands-on experience in accredited material digitisation, 3DCG simulation, DPC and PLM workflows — skills essential for careers in responsible design.</p>
+                            </div>
+                            <div class="flip-card-back">
+                                <img src="images/digital literacy in sustainable design.png" alt="Digital Literacy in Sustainable Design">
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="education-block flip-card" data-color="black">
+                        <div class="flip-card-inner">
+                            <div class="flip-card-front">
+                                <h3>Live Industry Collaboration</h3>
+                                <p>Provides students with 'another voice' and exposure to real-world practices, co-creation opportunities and insight into sustainable business practices.</p>
+                            </div>
+                            <div class="flip-card-back">
+                                <img src="images/live industry collaboration.jpg" alt="Live Industry Collaboration">
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="education-block flip-card" data-color="green">
+                        <div class="flip-card-inner">
+                            <div class="flip-card-front">
+                                <h3>Interdisciplinary Curriculum Innovation</h3>
+                                <p>A platform for Future Skills 'Apply', and post graduate interdisciplinary collaboration centred around professional practice, enterprise and innovation.</p>
+                            </div>
+                            <div class="flip-card-back">
+                                <img src="images/interdisciplinary curriculum innovation.jpg" alt="Interdisciplinary Curriculum Innovation">
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="education-block flip-card" data-color="grey">
+                        <div class="flip-card-inner">
+                            <div class="flip-card-front">
+                                <h3>Graduate Attributes and Employability</h3>
+                                <p>By involving students in service delivery, internships, and digital asset development, their practical knowledge and skillsets are readied for emerging roles in creative technology, material R&D, and digital storytelling.</p>
+                            </div>
+                            <div class="flip-card-back">
+                                <img src="images/graduate attributes and employability.jpg" alt="Graduate Attributes and Employability">
+                            </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Research Section -->
+        <section class="research-section section-padding" id="research">
+            <div class="container">
+                <h2 class="section-title">Empowering Research</h2>
+                <p class="section-intro">The Phygital Materials Bureau is an active laboratory that compliments Kingston University's multidisciplinary approach to research. It is a space that invites academics and researchers from across domains to create innovative, accessible, sustainable solutions for the challenges of today and tomorrow.</p>
+                
+                <div class="research-grid">
+                    <div class="research-block flip-card" data-color="grey">
+                        <div class="flip-card-inner">
+                            <div class="flip-card-front">
+                                <h3>Responsible Practice</h3>
+                                <p>Developing circular economy and responsible consumption / production processes through generative A.I. enhanced solutions.</p>
+                            </div>
+                            <div class="flip-card-back">
+                                <img src="images/responsible practice.png" alt="Responsible Practice">
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="research-block flip-card" data-color="green">
+                        <div class="flip-card-inner">
+                            <div class="flip-card-front">
+                                <h3>Next Generation Material Capture</h3>
+                                <p>Gaussian and triangular splat capture of material appearance. Automated / robotic physical property analysis.</p>
+                            </div>
+                            <div class="flip-card-back">
+                                <img src="images/next generation material capture.jpeg" alt="Next Generation Material Capture">
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="research-block flip-card" data-color="black">
+                        <div class="flip-card-inner">
+                            <div class="flip-card-front">
+                                <h3>Heritage Materials</h3>
+                                <p>Digital archiving of heritage materials and their branded, sustainable replication for licenced modern use.</p>
+                            </div>
+                            <div class="flip-card-back">
+                                <img src="images/heritage materials.png" alt="Heritage Materials">
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="research-block flip-card" data-color="blue">
+                        <div class="flip-card-inner">
+                            <div class="flip-card-front">
+                                <h3>Smart Materials</h3>
+                                <p>Developing affordable sympathetic materials for composting or longevity, suitable for the climate crisis and glocal production.</p>
+                            </div>
+                            <div class="flip-card-back">
+                                <img src="images/smart materials.jpg" alt="Smart Materials">
+                            </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Location Section -->
+        <section class="location-section section-padding" id="location">
+            <div class="container">
+                <h2 class="section-title">Kingston Middle Mill</h2>
+                <p class="section-text" style="color: var(--grey); text-align: center;">From humble beginnings in our Knights Park Campus, Digital Media Workshop, the Phygital Materials Bureau will be housed in its own world-class facility within the grounds of the new landmark Kingston Middle Mill development. This riverside location is a constant inspiration for groundbreaking sustainability-focused research.</p>
+                
+                <div class="location-images">
+                    <div class="location-image">
+                        <img src="images/Phygital Materials Bureau - Exterior.jpg" alt="Phygital Materials Bureau — Exterior">
+                        <p class="image-caption">Phygital Materials Bureau — Exterior</p>
+                        <p class="image-credit">Edward Crump - Lecturer in Interior Design KSA</p>
+                    </div>
+                    <div class="location-image">
+                        <img src="images/Phygital Materials Bureau - Interior.jpg" alt="Phygital Materials Bureau — Interior">
+                        <p class="image-caption">Phygital Materials Bureau — Interior</p>
+                        <p class="image-credit">Edward Crump - Lecturer in Interior Design KSA</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Footer -->
+        <footer class="main-footer section-padding" id="contact">
+            <div class="container">
+                <h2 class="section-title">Join Our Research Community</h2>
+                <p class="footer-intro">We're always looking for passionate researchers, industry partners, and collaborators to join our mission of advancing responsible design practice and sustainable materials; to enable "Thinking Through Making Across the Spectrum of Reality".</p>
+                
+                <div class="contact-grid">
+                    <div class="contact-block">
+                        <div class="contact-icon">
+                            <i data-lucide="mail"></i>
+                        </div>
+                        <h3>Email Us</h3>
+                        <a href="mailto:phygital@kingston.ac.uk">phygital@kingston.ac.uk</a>
+                    </div>
+                    
+                    <div class="contact-block">
+                        <div class="contact-icon">
+                            <i data-lucide="phone"></i>
+                        </div>
+                        <h3>Call Us</h3>
+                        <a href="tel:+442084179000">+44 (0)20 8417 9000</a>
+                    </div>
+                    
+                    <div class="contact-block">
+                        <div class="contact-icon">
+                            <i data-lucide="users"></i>
+                        </div>
+                        <h3>Collaborate</h3>
+                        <p>Partnership opportunities</p>
+                    </div>
+                </div>
+                
+                <div class="footer-bottom">
+                    <p class="copyright">Copyright 2025 Kingston University London</p>
+                    <p class="credits">Created by Matthew Mounsey-Wood, Lecturer in Digital Fashion, Department of Fashion.</p>
+                </div>
+            </div>
+        </footer>
+    </div>
+
+    <!-- Popup Overlay -->
+    <div class="popup-overlay" id="popupOverlay"></div>
+
+    <!-- Scripts -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+    <script>
+        // Fabric Animation Script
+        (function() {
+            const canvas = document.getElementById('fabric-canvas');
+            const renderer = new THREE.WebGLRenderer({ canvas, alpha: true });
+            renderer.setPixelRatio(window.devicePixelRatio);
+            renderer.setSize(window.innerWidth, window.innerHeight);
+
+            const scene = new THREE.Scene();
+            const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
+            camera.position.z = 30;
+
+            // Cloth geometry
+            const clothGeometry = new THREE.PlaneGeometry(50, 50, 20, 20);
+            const clothMaterial = new THREE.MeshBasicMaterial({
+                color: 0x0066CC,
+                side: THREE.DoubleSide,
+                wireframe: true,
+                transparent: true,
+                opacity: 0.3
+            });
+            const cloth = new THREE.Mesh(clothGeometry, clothMaterial);
+            scene.add(cloth);
+
+            // Cloth physics simulation variables
+            const particles = [];
+            const DAMPING = 0.03;
+            const TIMESTEP = 18 / 1000;
+            const gravity = new THREE.Vector3(0, -981 * 1.4, 0).multiplyScalar(TIMESTEP * TIMESTEP);
+
+            // Initialize particles
+            const vertices = clothGeometry.attributes.position;
+            for (let i = 0; i < vertices.count; i++) {
+                particles.push({
+                    position: new THREE.Vector3(vertices.getX(i), vertices.getY(i), vertices.getZ(i)),
+                    previous: new THREE.Vector3(vertices.getX(i), vertices.getY(i), vertices.getZ(i)),
+                    original: new THREE.Vector3(vertices.getX(i), vertices.getY(i), vertices.getZ(i)),
+                    invMass: 1
+                });
+            }
+
+            // Pin top row
+            for (let i = 0; i < 21; i++) {
+                particles[i].invMass = 0;
+            }
+
+            // Scroll interaction
+            let scrollY = 0;
+            let targetScrollY = 0;
+            window.addEventListener('scroll', () => {
+                targetScrollY = window.pageYOffset;
+            });
+
+            // Animation loop
+            function animate() {
+                requestAnimationFrame(animate);
+
+                // Smooth scroll interpolation
+                scrollY += (targetScrollY - scrollY) * 0.1;
+
+                // Update cloth based on scroll
+                const scrollEffect = scrollY * 0.001;
+                const time = Date.now() * 0.001;
+
+                // Apply wind force based on scroll
+                const windStrength = Math.min(scrollEffect * 2, 10);
+                const windForce = new THREE.Vector3(
+                    Math.sin(time) * windStrength,
+                    Math.cos(time * 0.5) * windStrength * 0.5,
+                    Math.sin(time * 0.7) * windStrength
+                );
+
+                // Update particles
+                for (let i = 0; i < particles.length; i++) {
+                    const particle = particles[i];
+                    if (particle.invMass === 0) continue;
+
+                    const force = gravity.clone();
+                    force.add(windForce.clone().multiplyScalar(particle.invMass));
+
+                    const tmp = particle.position.clone();
+                    particle.position.add(
+                        particle.position.clone().sub(particle.previous).multiplyScalar(1 - DAMPING)
+                    );
+                    particle.position.add(force);
+                    particle.previous = tmp;
+                }
+
+                // Update geometry
+                for (let i = 0; i < particles.length; i++) {
+                    vertices.setXYZ(i, particles[i].position.x, particles[i].position.y, particles[i].position.z);
+                }
+                vertices.needsUpdate = true;
+
+                // Rotate slightly based on scroll
+                cloth.rotation.y = scrollEffect * 0.1;
+
+                renderer.render(scene, camera);
+            }
+
+            animate();
+
+            // Handle resize
+            window.addEventListener('resize', () => {
+                camera.aspect = window.innerWidth / window.innerHeight;
+                camera.updateProjectionMatrix();
+                renderer.setSize(window.innerWidth, window.innerHeight);
+            });
+        })();
+
+        // Main Script
+        (function() {
+            // Smooth scroll for navigation links
+            document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+                anchor.addEventListener('click', function (e) {
+                    e.preventDefault();
+                    const target = document.querySelector(this.getAttribute('href'));
+                    if (target) {
+                        target.scrollIntoView({
+                            behavior: 'smooth',
+                            block: 'start'
+                        });
+                    }
+                });
+            });
+
+            // Header scroll effect
+            const header = document.querySelector('.main-header');
+            window.addEventListener('scroll', () => {
+                const currentScroll = window.pageYOffset;
+                if (currentScroll > 100) {
+                    header.style.boxShadow = '0 2px 10px rgba(0,0,0,0.1)';
+                } else {
+                    header.style.boxShadow = 'none';
+                }
+            });
+
+            // Flip Card Functionality - Changed to Hover
+            document.querySelectorAll('.flip-card').forEach(card => {
+                card.addEventListener('mouseenter', function() {
+                    this.classList.add('flipped');
+                });
+                
+                card.addEventListener('mouseleave', function() {
+                    this.classList.remove('flipped');
+                });
+            });
+
+            // Carousel functionality - Fixed implementation
+            const track = document.getElementById('carouselTrack');
+            const prevBtn = document.getElementById('carouselPrev');
+            const nextBtn = document.getElementById('carouselNext');
+            const items = document.querySelectorAll('.carousel-item');
+            
+            let currentIndex = 0;
+            const ITEM_WIDTH = 330; // 300px width + 30px gap
+            
+            function updateCarousel() {
+                if (!track || !items || items.length === 0) return;
+                
+                // Get container width
+                const container = document.querySelector('.carousel-container');
+                if (!container) return;
+                
+                // Account for padding
+                const containerWidth = container.offsetWidth - 100; // 50px padding on each side
+                const visibleItems = Math.floor(containerWidth / ITEM_WIDTH);
+                const maxIndex = Math.max(0, items.length - visibleItems);
+                
+                // Ensure currentIndex is within bounds
+                currentIndex = Math.max(0, Math.min(currentIndex, maxIndex));
+                
+                // Apply transform with proper calculation
+                const translateX = currentIndex * ITEM_WIDTH;
+                track.style.transform = `translateX(-${translateX}px)`;
+                
+                // Force browser to recalculate layout
+                track.offsetHeight;
+                
+                // Update button states
+                if (prevBtn) {
+                    prevBtn.disabled = currentIndex === 0;
+                    prevBtn.style.opacity = currentIndex === 0 ? '0.5' : '1';
+                    prevBtn.style.cursor = currentIndex === 0 ? 'default' : 'pointer';
+                }
+                
+                if (nextBtn) {
+                    nextBtn.disabled = currentIndex >= maxIndex;
+                    nextBtn.style.opacity = currentIndex >= maxIndex ? '0.5' : '1';
+                    nextBtn.style.cursor = currentIndex >= maxIndex ? 'default' : 'pointer';
+                }
+            }
+
+            // Event handlers
+            if (prevBtn) {
+                prevBtn.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    e.stopPropagation();
+                    closeAllPopups();
+                    if (currentIndex > 0) {
+                        currentIndex--;
+                        updateCarousel();
+                    }
+                });
+            }
+
+            if (nextBtn) {
+                nextBtn.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    e.stopPropagation();
+                    closeAllPopups();
+                    const container = document.querySelector('.carousel-container');
+                    const containerWidth = container.offsetWidth - 100; // Account for padding
+                    const visibleItems = Math.floor(containerWidth / ITEM_WIDTH);
+                    const maxIndex = Math.max(0, items.length - visibleItems);
+                    
+                    if (currentIndex < maxIndex) {
+                        currentIndex++;
+                        updateCarousel();
+                    }
+                });
+            }
+
+            // Initialize carousel after DOM is ready
+            if (track && items.length > 0) {
+                // Wait for images to load
+                const images = track.querySelectorAll('img');
+                let loadedImages = 0;
+                
+                function checkImagesLoaded() {
+                    loadedImages++;
+                    if (loadedImages === images.length) {
+                        updateCarousel();
+                    }
+                }
+                
+                images.forEach(img => {
+                    if (img.complete) {
+                        checkImagesLoaded();
+                    } else {
+                        img.addEventListener('load', checkImagesLoaded);
+                        img.addEventListener('error', checkImagesLoaded); // Handle errors too
+                    }
+                });
+                
+                // Fallback in case images are already loaded or fail
+                setTimeout(() => {
+                    updateCarousel();
+                }, 500);
+                
+                // Update on window resize with debounce
+                let resizeTimer;
+                window.addEventListener('resize', () => {
+                    clearTimeout(resizeTimer);
+                    resizeTimer = setTimeout(() => {
+                        updateCarousel();
+                    }, 250);
+                });
+            }
+
+            // Enhanced popup functionality with overlay
+            function initializePopups() {
+                const overlay = document.getElementById('popupOverlay');
+                
+                // Add fresh event listeners
+                document.querySelectorAll('.info-toggle').forEach(button => {
+                    button.addEventListener('click', function(e) {
+                        e.preventDefault();
+                        e.stopPropagation();
+                        
+                        const carouselImage = this.closest('.carousel-image');
+                        const panel = carouselImage.querySelector('.info-panel');
+                        
+                        if (panel) {
+                            // Close all other panels first
+                            document.querySelectorAll('.info-panel').forEach(p => {
+                                p.classList.remove('active');
+                            });
+                            
+                            // Move panel to body to avoid transform issues
+                            const panelClone = panel.cloneNode(true);
+                            panelClone.classList.add('active');
+                            panelClone.id = 'activeInfoPanel';
+                            
+                            // Remove any existing active panel
+                            const existingPanel = document.getElementById('activeInfoPanel');
+                            if (existingPanel) {
+                                existingPanel.remove();
+                            }
+                            
+                            // Add panel to body and show overlay
+                            document.body.appendChild(panelClone);
+                            overlay.classList.add('active');
+                            
+                            // Add close handler to the cloned panel
+                            panelClone.addEventListener('click', function(e) {
+                                e.stopPropagation();
+                            });
+                        }
+                    });
+                });
+
+                // Close popup when clicking overlay
+                overlay.addEventListener('click', function() {
+                    const activePanel = document.getElementById('activeInfoPanel');
+                    if (activePanel) {
+                        activePanel.remove();
+                    }
+                    overlay.classList.remove('active');
+                });
+            }
+
+            // Close popups when carousel navigation is used
+            function closeAllPopups() {
+                const activePanel = document.getElementById('activeInfoPanel');
+                if (activePanel) {
+                    activePanel.remove();
+                }
+                document.getElementById('popupOverlay').classList.remove('active');
+            }
+
+            // Close panels when clicking outside or pressing escape
+            document.addEventListener('click', function(e) {
+                if (!e.target.closest('.carousel-item') && !e.target.closest('#activeInfoPanel') && !e.target.closest('.popup-overlay')) {
+                    closeAllPopups();
+                }
+            });
+
+            document.addEventListener('keydown', function(e) {
+                if (e.key === 'Escape') {
+                    closeAllPopups();
+                }
+            });
+
+            // Initialize popups on page load
+            initializePopups();
+
+            // Intersection Observer for fade-in animations
+            const observerOptions = {
+                threshold: 0.1,
+                rootMargin: '0px 0px -100px 0px'
+            };
+
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.style.opacity = '1';
+                        entry.target.style.transform = 'translateY(0)';
+                    }
+                });
+            }, observerOptions);
+
+            // Observe all sections
+            document.querySelectorAll('section').forEach(section => {
+                section.style.opacity = '0';
+                section.style.transform = 'translateY(30px)';
+                section.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
+                observer.observe(section);
+            });
+
+            // Initialize Lucide icons
+            lucide.createIcons();
+        })();
+    </script>
+</body>
+</html>
