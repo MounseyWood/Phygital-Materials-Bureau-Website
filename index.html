@@ -545,6 +545,8 @@
             border-radius: 50%;
             background: rgba(255, 255, 255, 0.9);
             border: none;
+            -webkit-appearance: none;
+            appearance: none;
             cursor: pointer;
             transition: all 0.3s ease;
             z-index: 50;
@@ -641,6 +643,8 @@
             background: rgba(255, 255, 255, 0.9);
             border: none;
             border-radius: 0;
+            -webkit-appearance: none;
+            appearance: none;
             cursor: pointer;
             display: flex;
             align-items: center;
@@ -936,7 +940,7 @@
 
         .flip-card-back {
             transform: rotateY(180deg);
-            background: rgba(255, 255, 255, 0.95);
+            background: var(--lawn);
             backdrop-filter: blur(10px);
             border: 1px solid rgba(0, 0, 0, 0.1);
             padding: 0;
@@ -969,24 +973,24 @@
         }
 
         .education-block[data-color="canvas"] .flip-card-front {
-            background: rgba(234, 223, 208, 1.0);
+            background: var(--canvas);
             backdrop-filter: blur(10px);
             border: 1px solid rgba(234, 223, 208, 0.3);
         }
 
         .education-block[data-color="canvas"] .flip-card-front {
-            background: rgba(234, 223, 208, 1.0);
+            background: var(--canvas);
             backdrop-filter: blur(10px);
             border: 1px solid rgba(234, 223, 208, 0.3);
         }
          .education-block[data-color="canvas"] .flip-card-front {
-            background: rgba(234, 223, 208, 1.0);
+            background: var(--canvas);
             backdrop-filter: blur(10px);
             border: 1px solid rgba(234, 223, 208, 0.3);
         }
 
          .education-block[data-color="canvas"] .flip-card-front {
-            background: rgba(234, 223, 208, 1.0);
+            background: var(--canvas);
             backdrop-filter: blur(10px);
             border: 1px solid rgba(234, 223, 208, 0.3);
         }
@@ -1009,27 +1013,27 @@
         }
 
         .research-block[data-color="canvas"] .flip-card-front {
-             background: rgba(234, 223, 208, 1.0);
+             background: var(--canvas);
             backdrop-filter: blur(10px);
             border: 1px solid rgba(234, 223, 208, 0.3);
         }
 
 
         .research-block[data-color="canvas"] .flip-card-front {
-             background: rgba(234, 223, 208, 1.0);
+             background: var(--canvas);
             backdrop-filter: blur(10px);
             border: 1px solid rgba(234, 223, 208, 0.3);
         }
 
         .research-block[data-color="canvas"] .flip-card-front {
-             background: rgba(234, 223, 208, 1.0);
+             background: var(--canvas);
             backdrop-filter: blur(10px);
             border: 1px solid rgba(234, 223, 208, 0.3);
         }
 
 
         .research-block[data-color="canvas"] .flip-card-front {
-             background: rgba(234, 223, 208, 1.0);
+             background: var(--canvas);
             backdrop-filter: blur(10px);
             border: 1px solid rgba(234, 223, 208, 0.3);
         }
@@ -1431,7 +1435,7 @@
         <section class="collaboration section-padding">
             <div class="container">
                 <h2 class="section-title">A Space for Creative Collaboration</h2>
-                <p class="section-intro">The Phygital Materials Studio represents a world-class education facility that enables "Thinking Through Making Across the Spectrum of Reality". We're exploring and developing the sustainable materials of tomorrow, readying them for digital integration and discoverability.</p>
+                <p class="section-intro">The Phygital Materials Studio represents a world-class education facility that enables<br><strong>"Thinking Through Making Across the Spectrum of Reality"</strong><br>We're exploring and developing the sustainable materials of tomorrow, readying them for digital integration and discoverability.</p>
                 
                 <div class="feature-grid">
                     <div class="feature-block translucent-block">
