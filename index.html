@@ -1712,47 +1712,31 @@
         <!-- Pilot Project Section -->
         <section class="pilot-project section-padding">
             <div class="container">
-                <img id="pilot" src="images/dewhirst.png" alt="Dewhirst" style="display:block; max-width:200px; margin: 0 auto 40px;">
+                <img id="pilot" src="images/dewhirst.png" alt="Dewhirst" style="display:block; max-width:200px; margin: 0 auto 40px; scroll-margin-top: 100px;">
                 <h2 class="pilot-title">Pilot Project:<br><span class="pilot-subtitle">Three Discovery Tracks</span></h2>
                 <p class="section-text" style="color: var(--grey); text-align: center;">Our collaboration with Dewhirst aims to discover synergies and share knowledge across material digitisation and EUDPP data recording. Seamless physical-digital, digital-physical workflows enable designers to experience authentic fabric behaviour digitally before physical production. Leading to better decision making and less waste. This project demonstrates how Dewhirst can strengthen it's B2B relationships by sharing seamless digital workflows.</p>
-                
-                <div class="project-showcase">
-                    <div class="showcase-item">
-                        <img src="images/FDP dress.png" alt="FDP Dress">
-                    </div>
-                    <div class="showcase-item">
-                        <img src="images/FDP print.jpg" alt="FDP Print">
-                    </div>
-                </div>
                 
                 <div class="project-features">
                     <div class="feature-callout translucent-block">
                         <div class="feature-callout-icon instant">
-                            <i data-lucide="fast-forward"></i>
+                            <i data-lucide="file-search"></i>
                         </div>
-                        <h3>Instant Sampling</h3>
-                        <p>Digital samples are delivered in minutes, not days.</p>
+                        <h3>Track 1: EU DPP &amp; Verification</h3>
+                        <p>Understanding EU DPP requirements, how and where Material Digitisation could become a useful Verification Layer.</p>
                     </div>
                     <div class="feature-callout translucent-block">
                         <div class="feature-callout-icon waste">
-                            <i data-lucide="trash-2"></i>
+                            <i data-lucide="briefcase"></i>
                         </div>
-                        <h3>Waste Reduction</h3>
-                        <p>Focuses decision-making, reducing waste and shipping.</p>
+                        <h3>Track 2: Concierge &amp; CPD</h3>
+                        <p>Exploring interest in Concierge Digitisation Services and Continuing Professional Development.</p>
                     </div>
                     <div class="feature-callout translucent-block">
                         <div class="feature-callout-icon access">
-                            <i data-lucide="globe"></i>
+                            <i data-lucide="book-open"></i>
                         </div>
-                        <h3>Broadens Access</h3>
-                        <p>Digital distribution enables more consumer testing and experimentation.</p>
-                    </div>
-                    <div class="feature-callout translucent-block">
-                        <div class="feature-callout-icon dpp">
-                            <i data-lucide="shield-check"></i>
-                        </div>
-                        <h3>EU DPP Ready</h3>
-                        <p>Accreditation metadata can be embedded for PLM integration.</p>
+                        <h3>Track 3: Pedagogy &amp; Resources</h3>
+                        <p>Developing Digitising Materials Pedagogy and Learning and Teaching Resources.</p>
                     </div>
                 </div>
                 
@@ -2094,7 +2078,7 @@
                         // Calculate header height dynamically
                         const header = document.querySelector('.main-header');
                         const headerHeight = header.offsetHeight;
-                        const targetPosition = target.offsetTop - headerHeight - 20; // Add 20px extra padding
+                        const targetPosition = target.getBoundingClientRect().top + window.pageYOffset - headerHeight - 20;
                         
                         window.scrollTo({
                             top: targetPosition,
